@@ -16,10 +16,17 @@ $config = [
     //http://www.yiiframework.com/doc-2.0/guide-structure-applications.html#important-properties
 
     'defaultRoute'=>'country/index',//设置默认的controller和action，（这个不属于重要，但是我认为重要）
-    //指定随应用初始化的组件（components） 不可设置太多，会影响效率 gii和debug通过这个引入 bootstrap @http://www.yiiframework.com/doc-2.0/guide-structure-applications.html#bootstrap
+    //指定随应用初始化的组件（components），直接生成实例的componetID 也就是'components'属性中的组件
+    // 不可设置太多，会影响效率 gii和debug通过这个引入 bootstrap @http://www.yiiframework.com/doc-2.0/guide-structure-applications.html#bootstrap
     'bootstrap' => ['log'],
-    //注册要用的组件 @http://www.yiiframework.com/doc-2.0/guide-structure-applications.html#components
+    //注册要用的组件,这些部件是没有生成实例的，而是要通过Yii::$app->componentID 获取，通过魔术方法生成对应的实例
+    //不要在这里注册太多，不利于维护和测试，在可以动态的添加，再要用的时候添加，详见http://www.yiiframework.com/doc-2.0/guide-concept-service-locator.html
+    //应用会初始化一些核心的component应对基本的请求处理 详见 http://www.yiiframework.com/doc-2.0/guide-structure-application-components.html#core-application-components
+    //http://www.yiiframework.com/doc-2.0/guide-structure-applications.html#components
+    //http://www.yiiframework.com/doc-2.0/guide-concept-service-locator.html
+    //http://www.yiiframework.com/doc-2.0/guide-structure-application-components.html
     'components' => [
+        //格式 'componentID'=>'className|array(some config)'
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => time(),
