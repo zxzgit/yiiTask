@@ -1,3 +1,11 @@
+<?php $this->beginContent('@app/views/layouts/zxzbase.php'); ?>
+
+<?php $this->beginBlock('block1'); ?>
+
+<br>...content of block1 hello world...<br>
+
+<?php $this->endBlock(); ?>
+
 <?php
 
 use yii\helpers\Html;
@@ -13,7 +21,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="country-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?php //echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
         <?= Html::a('Create Country', ['create'], ['class' => 'btn btn-success']) ?>
@@ -34,3 +42,6 @@ $this->params['breadcrumbs'][] = $this->title;
     ]); ?>
 
 </div>
+
+<?php $this->endContent(); ?>
+

@@ -8,6 +8,8 @@ use app\models\giicreate\CountrySearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use app\components\ActionTimeFilter;
+
 
 /**
  * CountryController implements the CRUD actions for Country model.
@@ -20,9 +22,12 @@ class CountryController extends Controller
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                    'delete' => ['post'],
+                    'delete' => ['post','delete'],
                 ],
             ],
+			'actionTime'=>[
+				'class'=> ActionTimeFilter::className(),
+			]
         ];
     }
 
@@ -32,11 +37,14 @@ class CountryController extends Controller
      */
     public function actionIndex()
     {
-        echo date('Y-m-d H:i:s');
-        print_r(Yii::$app->request->queryParams);
+		Yii::$app->view->on(\yii\web\View::EVENT_END_BODY, function () {
+			echo date('Y-m-d');
+		});
+//        echo date('Y-m-d H:i:s');
+//        print_r(Yii::$app->request->post());
         $searchModel = new CountrySearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
+//		print_r($dataProvider->query->all());
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
@@ -50,6 +58,13 @@ class CountryController extends Controller
      */
     public function actionView($id)
     {
+		$query=Country::find();
+		$result=$query->all();
+		foreach ($result as $resultKey => $resultVal) {
+			echo "data:".$resultVal['code']."\r\n";
+		}
+		
+		print_r($this->findModel($id)->toArray());
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -120,4 +135,20 @@ class CountryController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+	
+	/**
+	 * zxz standalone action
+	 * @return array
+	 */
+	public function actions()
+	{
+		return [
+			'customize' => [//@link http://domain.com/country/customize/
+				'class' => 'app\components\CustomizeViewAction',
+			],
+			'myaction' => [//@link http://domain.com/country/myaction/
+				'class' => 'app\components\CustomizeAction',
+			],
+		];
+	}
 }

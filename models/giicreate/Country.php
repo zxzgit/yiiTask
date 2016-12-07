@@ -13,6 +13,7 @@ use Yii;
  */
 class Country extends \yii\db\ActiveRecord
 {
+	public $zxz='lekwlekl';
     /**
      * @inheritdoc
      */
@@ -40,9 +41,20 @@ class Country extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'code' => 'Code',
-            'name' => 'Name',
-            'population' => 'Population',
+            'code' => 'Code的lable',
+            'name' => 'Name的lable',
+            'population' => 'Population的lable',
         ];
     }
+    
+    
+	public function fields()
+	{
+		return [
+			// field name is the same as the attribute name
+			'code_alias'=>'code',
+			
+			
+		];
+	}
 }
