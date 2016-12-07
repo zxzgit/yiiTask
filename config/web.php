@@ -65,9 +65,16 @@ $config = [
             'rules' => [
 //                '' => 'country/index',//只输入域名是默认的控制器和方法
             ],
-        ]
-
+        ],
     ],
+
+	//自定义的模块添加 yii和debug模块就是靠这个属性来加载的，这里
+	'modules' => [
+		'forum' => [
+			'class' => 'app\modules\forum\Module',
+			// ... other configurations for the module ...
+		],
+	],
 
     //params设置一些常用的参数信息，以便在引用中多次用到的时候在这里同一修改就可以了，
     //可以它同一配置在一个文件中，然后在那个文件中以数组返回给params,比如头像大小设置，
