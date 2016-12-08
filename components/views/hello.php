@@ -4,4 +4,4 @@
  * Author: zxz
  * Date: 2016/12/7 22:18
  */
-echo '===hello world==========';
+echo "<br>===I'm HelloWidget run a render view display content==========<br>";

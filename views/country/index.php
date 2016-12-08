@@ -11,6 +11,8 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use app\components\HelloWidget;
+use app\assets\zxzAsset;
+zxzAsset::register($this);
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\giicreate\CountrySearch */
@@ -48,7 +50,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <!--content that may contain <tag>'s-->
 
-    <?php HelloWidget::end(); ?>
+<?php HelloWidget::end(); ?>
 
 <?php $this->endContent(); ?>
 

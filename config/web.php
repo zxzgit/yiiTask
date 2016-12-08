@@ -66,6 +66,9 @@ $config = [
 //                '' => 'country/index',//只输入域名是默认的控制器和方法
             ],
         ],
+        'assetManager' => [
+            'bundles' => false
+        ],
     ],
 
 	//自定义的模块添加 yii和debug模块就是靠这个属性来加载的，这里
