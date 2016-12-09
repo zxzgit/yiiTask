@@ -66,8 +66,10 @@ $config = [
 //                '' => 'country/index',//只输入域名是默认的控制器和方法
             ],
         ],
+		
+		//设置资源类的加载
         'assetManager' => [
-            'bundles' => false
+//            'bundles' => false
         ],
     ],
 
