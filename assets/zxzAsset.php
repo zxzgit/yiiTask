@@ -9,12 +9,13 @@ namespace app\assets;
 use yii\web\AssetBundle;
 
 class zxzAsset extends AssetBundle{
+	public $baseUrl="http://libs.useso.com/";
 	public $css=[
 		'http://cdn.bootcss.com/bootstrap/4.0.0-alpha.5/css/bootstrap.css',//bootcdn cdn
 	];
 	public $js=[
 		'http://lib.sinaapp.com/js/jquery/1.9.1/jquery-1.9.1.min.js',//sina cdn
 		'http://libs.baidu.com/jquery/1.9.1/jquery.min.js',//baidu cnd this is fastest
-		'http://libs.useso.com/js/jquery/1.9.1/jquery.min.js',//360 cdn
+		'js/jquery/1.9.1/jquery.min.js',//360 cdn
 	];
 }
