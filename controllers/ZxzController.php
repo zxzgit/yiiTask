@@ -8,12 +8,6 @@
 namespace app\controllers;
 
 
-use yii\web\Controller;
-
-class ZxzController extends Controller {
-	public $layout='zxzmain';
+class zxz {
 	
-	public function actionIndex(){
-		return $this->render('index');
-	}
 }
