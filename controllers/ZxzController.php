@@ -19,4 +19,16 @@ class ZxzController extends Controller {
 	public function actionIndex(){
 		return $this->render('index');
 	}
+
+	public function actionError(){
+		echo "this is zxz error action for error";
+	}
+
+	public function actionHello(){
+		echo __METHOD__;
+	}
+
+	public function actionHelloWorld(){
+		echo __METHOD__;
+	}
 }

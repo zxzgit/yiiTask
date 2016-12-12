@@ -10,16 +10,17 @@ namespace app\assets;
 
 use yii\web\AssetBundle;
 
-class ZxzPublishAsset extends AssetBundle {
+class helloPublishAsset extends AssetBundle {
 	public $sourcePath = '@app/static';
 	public $basePath = '@webroot';
 	public $css = [
-		'css/zxzbootstrap.css',
+		'css/hellobootstrap.css',
 	];
 	public $js = [
 //		'http://libs.baidu.com/jquery/1.9.1/jquery.min.js',
+		'js/hellojquery.js',
 		'js/zxzjquery.js',
-		
+
 	];
 //	public $publishOptions = [
 //		'only' => [

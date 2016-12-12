@@ -39,7 +39,7 @@ $config = [
             'enableAutoLogin' => true,
         ],
         'errorHandler' => [
-            'errorAction' => 'site/error',
+            'errorAction' => 'zxz/error',//定义用来处理错误的控制器和方法
         ],
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
@@ -62,8 +62,12 @@ $config = [
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
+            'enableStrictParsing' => true,
+            'suffix' => ".html",
             'rules' => [
-//                '' => 'country/index',//只输入域名是默认的控制器和方法
+                '<controller:(\w+)>/<id:\d+>/<action:(\w+)>' => '<controller>/<action>',
+                '<controller:(\w+)>/<id:\d+>' => '<controller>/index',
+                '<controller:(\w+)>/<action:(.*)>' => '<controller>/<action>',
             ],
         ],
 		
