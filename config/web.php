@@ -29,7 +29,7 @@ $config = [
         //格式 'componentID'=>'className|array(some config)'
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
-            'cookieValidationKey' => time(),
+            'cookieValidationKey' => '123456',
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
@@ -53,7 +53,23 @@ $config = [
             'targets' => [
                 [
                     'class' => 'yii\log\FileTarget',
-                    'levels' => ['error', 'warning'],
+                    'levels' => ['error', 'warning','profile'],
+					'logVars' => [],
+					'categories' => [
+						'yii\db\*',
+						'yii\web\HttpException:*',
+					],
+					'except' => [
+//						'yii\web\HttpException:404',
+					],
+					'prefix' => function ($message) {
+						$user = Yii::$app->has('user', true) ? Yii::$app->get('user') : null;
+						$userID = $user ? $user->getId(false) : '-';
+						return "[$userID][zxz][{$_SERVER['REMOTE_ADDR']}]";
+					},
+					'logFile' => '@app/runtime/logs/weblogs/' . date('Y').'/' . date('m').'/' . date('d').'/'.date('Y-m-d').'.log',
+//					'maxFileSize'=>2,//单位 kb 默认10M
+					'maxLogFiles' => 3,
                 ],
             ],
         ],
