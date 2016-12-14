@@ -11,6 +11,7 @@ namespace app\controllers;
 namespace app\controllers;
 
 
+use app\models\giicreate\Country;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 
@@ -18,6 +19,16 @@ class ZxzController extends Controller {
 	public $layout='zxzmain';
 	
 	public function actionIndex(){
+		$start=-microtime(true);
+		$countries = Country::find()->orderBy('name')->all();
+		echo $comsumeTime=microtime(true)+$start;echo "<br>";
+		
+		$start=-microtime(true);
+		$posts = \Yii::$app->db->createCommand('SELECT * FROM country')->queryAll();
+		echo $comsumeTime=microtime(true)+$start;echo "<br>";
+		
+		//上面两种插叙方式，第一种耗时是第二种的四十几倍？
+		
 		return $this->render('index');
 	}
 	
