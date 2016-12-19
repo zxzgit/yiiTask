@@ -11,7 +11,11 @@ namespace app\controllers;
 namespace app\controllers;
 
 
+use app\models\Customer;
 use app\models\giicreate\Country;
+use yii\data\ArrayDataProvider;
+use yii\data\Sort;
+use yii\db\Query;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 
@@ -28,6 +32,17 @@ class ZxzController extends Controller {
 		echo $comsumeTime=microtime(true)+$start;echo "<br>";
 		
 		//上面两种插叙方式，第一种耗时是第二种的四十几倍？
+		
+		$userQuery = (new Query())->from('country')
+			->orderBy([
+				'code' => SORT_ASC,
+				'name' => SORT_DESC,
+			])->indexBy('code')
+			->all();
+		
+		print_r($userQuery);
+		
+		
 		
 		return $this->render('index');
 	}
@@ -56,5 +71,34 @@ class ZxzController extends Controller {
 		$response->format = \yii\web\Response::FORMAT_JSON;
 		$response->data = ['message' => 'hello world','status'=>1];
 //		$response->send();
+	}
+	
+	public function actionCustomer(){
+		echo "hello world".__METHOD__;
+		$model=new Customer();
+//		$model->
+	}
+	
+	public function actionFormated(){
+		$data = [
+			['id' => 1, 'name' => 'name 1'],
+			['id' => 2, 'name' => 'name 2'],
+			['id' => 100, 'name' => 'name 100'],
+		];
+		
+		$provider = new ArrayDataProvider([
+			'allModels' => $data,
+			'pagination' => [
+				'pageSize' => 1,
+			],
+			'sort' => [
+				'attributes' => ['id', 'name'],
+			],
+		]);
+
+// get the rows in the currently requested page
+		$rows = $provider->getModels();
+		print_r($rows);
+		print_r($ids = $provider->getKeys());
 	}
 }

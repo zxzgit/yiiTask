@@ -34,6 +34,10 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
+            [
+                'class' => 'yii\grid\CheckboxColumn',
+                // you may configure additional properties here
+            ],
             ['class' => 'yii\grid\SerialColumn'],
 
             'code',
@@ -41,16 +45,24 @@ $this->params['breadcrumbs'][] = $this->title;
             'population',
 
             ['class' => 'yii\grid\ActionColumn'],
+            [
+                'class' => 'yii\grid\DataColumn', // can be omitted, as it is the default
+                'value' => function ($data) {
+                    return $data->code.'-'.$data->name; // $data['name'] for array data, e.g. using SqlDataProvider.
+                },
+                'label'=>'自定义组合行'
+            ],
         ],
     ]); ?>
 
 </div>
 
-<?php HelloWidget::begin(); ?>
+<?php HelloWidget::begin(); yii\grid\CheckboxColumn::className()?>
 
 <!--content that may contain <tag>'s-->
 
 <?php HelloWidget::end(); ?>
 
 <?php $this->endContent(); ?>
+
 
