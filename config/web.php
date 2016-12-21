@@ -81,6 +81,7 @@ $config = [
             'enableStrictParsing' => true,
             'suffix' => ".html",
             'rules' => [
+            	''=>'country/index',
                 '<controller:(\w+)>/<id:\d+>/<action:(\w+)>' => '<controller>/<action>',
                 '<controller:(\w+)>/<id:\d+>' => '<controller>/index',
                 '<controller:(\w+)>/<action:(.*)>' => '<controller>/<action>',
