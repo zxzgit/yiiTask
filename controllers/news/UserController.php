@@ -15,7 +15,7 @@ use yii\web\Controller;
 use yii\filters\AccessControl;
 
 class UserController extends Controller {
-	
+	public $layout='zxzmain.php';
 	public function behaviors() {
 		return [
 			'access' => [
@@ -29,7 +29,7 @@ class UserController extends Controller {
 					],
 					[
 						'allow'   => true,
-						'actions' => ['logout','index'],
+						'actions' => ['logout','index','login'],
 						'roles'   => ['@'],
 					],
 				],
@@ -43,10 +43,8 @@ class UserController extends Controller {
 	
 	
 	public function actionLogin() {
-		echo \Yii::$app->response->getCookies()->get('_cstf');
-//		echo \Yii::$app->request->getCookies()->getValue('_csrf');exit;
 		$userForm = new UserForm();
-		if ($userForm->load(\Yii::$app->request->post()) && $userForm->login()) {
+		if (($userForm->load(\Yii::$app->request->post()) && $userForm->login()) || !\Yii::$app->user->isGuest) {
 			//登录成功
 			return $this->redirect(['news/user/index']);
 		} else {
@@ -62,10 +60,19 @@ class UserController extends Controller {
 		}else{
 			echo "退出失败";
 		}
+		return $this->redirect(['news/user/login']);
 	}
 	
 	public function actionSignup() {
 		
+	}
+
+	public function actionAbout(){
+		return $this->render('about');
+	}
+
+	public function actionContact(){
+		return $this->render('contact');
 	}
 	
 }

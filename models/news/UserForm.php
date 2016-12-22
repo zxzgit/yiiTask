@@ -16,7 +16,7 @@ class UserForm extends ActiveRecord {
 	public $_user = false;
 	
 	public static function tableName() {
-		return 'zxz_user';
+		return '{{%user}}';
 	}
 	
 	public function rules() {
@@ -25,6 +25,7 @@ class UserForm extends ActiveRecord {
 			[['sex'], 'integer'],
 			['username', 'string', 'max' => 50],
 			['sex', 'integer', 'max' => 1],
+			['username', 'filter', 'filter' => 'trim'],
 			['password', 'validPassword', 'message' => '密码或者用户名错误！']
 		];
 	}

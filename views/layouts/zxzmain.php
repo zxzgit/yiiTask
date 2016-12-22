@@ -6,6 +6,12 @@
  */
 /* @var $content string view content */
 use yii\helpers\Html;
+use app\assets\AppAsset;
+use yii\bootstrap\NavBar;
+use yii\bootstrap\Nav;
+use yii\widgets\Breadcrumbs;
+
+AppAsset::register($this);
 
 ?>
 <?php $this->beginPage() ?>
@@ -22,13 +28,47 @@ use yii\helpers\Html;
 <?php $this->beginBody() ?>
 
 <div class="wrap">
+	<?php
+	NavBar::begin([
+		'brandLabel' => 'My Company',
+		'brandUrl'   => Yii::$app->homeUrl,
+		'options'    => [
+			'class' => 'navbar-inverse navbar-fixed-top',
+		],
+	]);
 
+	echo Nav::widget([
+		'options' => ['class' => 'navbar-nav navbar-right'],
+		'items'   => [
+			['label' => 'Home', 'url' => ['/news/user/index']],
+			['label' => 'About', 'url' => ['/news/user/about']],
+			['label' => 'Contact', 'url' => ['/news/user/contact']],
+			['label' => 'Acticle', 'url' => ['/news/acticle/acticle/index']],
+			Yii::$app->user->isGuest ? (
+			['label' => 'Login', 'url' => ['/news/user/login']]
+			) : (
+				'<li style="line-height: 50px;">'
+				. Html::beginForm(['/news/user/logout'], 'post')
+				. Html::submitButton(
+					'Logout (' . Yii::$app->user->identity->username . ')',
+					['class' => 'btn btn-link']
+				)
+				. Html::endForm()
+				. '</li>'
+			)
+		],
+	]);
+	NavBar::end();
+	?>
 	<div class="container">
-
-		<?php
-		echo "I'm layout zxzmain.php";
-		echo $content
-		?>
+		<?= Breadcrumbs::widget([
+				'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+		]) ?>
+		<div>
+			<?php
+			echo $content
+			?>
+		</div>
 	</div>
 </div>
 

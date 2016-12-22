@@ -7,15 +7,12 @@
 use yii\helpers\Html;
 use yii\widgets\LinkPager;
 
-echo "this is vieweeeee";
-$this->title = 'Countries';
+//$this->title = 'Countries';
+$this->title=Yii::$app->user->identity->getUsername().' 个人主页';
 $this->params['breadcrumbs'][] = $this->title;
-print_r($this->params);
 ?>
 
-<h1>zxz主页面</h1>
-<?php
-echo Html::a('退出',['news/user/logout']);
-?>
+<h1>hello world</h1>
+
 
 

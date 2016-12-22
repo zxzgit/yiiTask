@@ -9,10 +9,9 @@
 use yii\widgets\ActiveForm;
 use yii\helpers\Html;
 
-echo "这个是登录页面的view层";
 ?>
 
-
+<div style="width: 325px;margin: 10px auto;">
 <?php $form = ActiveForm::begin([
 	'id'                   => 'login',
 	'enableAjaxValidation' => false,
@@ -26,3 +25,4 @@ echo "这个是登录页面的view层";
 //            ])?>
 <?= Html::submitButton('登录', ['class' => 'btn btn-primary btn-lg btn-block', 'name' => 'submit-button']) ?>
 <?php ActiveForm::end(); ?>
+</div>
