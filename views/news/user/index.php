@@ -13,18 +13,9 @@ $this->params['breadcrumbs'][] = $this->title;
 print_r($this->params);
 ?>
 
+<h1>zxz主页面</h1>
+<?php
+echo Html::a('退出',['news/user/logout']);
 ?>
-<h1>Countries</h1>
-<p>
-	<?= Html::a('Create Country', ['create','a'=>1], ['class' => 'btn btn-success']) ?>
-</p>
-<ul>
-	<?php foreach ($countries as $country): ?>
-		<li>
-			<?= Html::encode("{$country->username} ({$country->uid})") ?>:
-			<?= $country->sex ?>
-		</li>
-	<?php endforeach; ?>
-</ul>
 
-<?= LinkPager::widget(['pagination' => $pagination]) ?>
+

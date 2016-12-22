@@ -35,9 +35,10 @@ $config = [
             'class' => 'yii\caching\FileCache',
         ],
         'user' => [
-            'identityClass' => 'app\models\User',
+            'identityClass' => 'app\models\common\User',
             'enableAutoLogin' => true,
-        ],
+			'loginUrl'=>['news/user/login'],//定义后台默认登录界面[权限不足跳到该页]
+		],
         'errorHandler' => [
             'errorAction' => 'zxz/error',//定义用来处理错误的控制器和方法
         ],
