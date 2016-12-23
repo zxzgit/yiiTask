@@ -54,9 +54,10 @@ class ActicleSearch extends Acticle
             // $query->where('0=1');
             return $dataProvider;
         }
-
-        $query->andFilterWhere([
-            'aid' => $this->aid,
+		!Yii::$app->user->getId() && Yii::$app->response->redirect(['/news/user/login','redirect'=>Yii::$app->request->getAbsoluteUrl()]);
+        $query->where(['uid' => Yii::$app->user->getId()])
+			->andFilterWhere([
+			'aid' => $this->aid,
             'tid' => $this->tid,
             'addtime' => $this->addtime,
             'mtime' => $this->mtime,

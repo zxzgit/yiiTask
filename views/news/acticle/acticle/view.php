@@ -5,6 +5,7 @@ use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\news\Acticle */
+/* @var $tagList array */
 
 $this->title = $model->title;
 $this->params['breadcrumbs'][] = ['label' => 'Acticles', 'url' => ['index']];
@@ -29,17 +30,31 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'aid',
-            'tid',
+            [
+                'label' => '标签',
+                'value' => $tagList[$model->tid]?$tagList[$model->tid]['tagname']:'',
+            ],
             'title',
             'keyword',
-            'content:ntext',
             'addtime',
             'mtime',
             'uid',
             'pv',
             'uv',
             'ip',
+            'content:ntext',
+            [
+                'label' => '文章内容ee',
+                'value' => $model->content,
+                'format'=> 'ntext'
+            ]
         ],
     ]) ?>
+    
+    <div>
+        <?php
+        echo $model->content;
+        ?>
+    </div>
 
 </div>

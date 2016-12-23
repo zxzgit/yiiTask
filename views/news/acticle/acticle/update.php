@@ -4,6 +4,7 @@ use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\news\Acticle */
+/* @var $tagList array */
 
 $this->title = 'Update Acticle: ' . ' ' . $model->title;
 $this->params['breadcrumbs'][] = ['label' => 'Acticles', 'url' => ['index']];
@@ -16,6 +17,7 @@ $this->params['breadcrumbs'][] = 'Update';
 
     <?= $this->render('_form', [
         'model' => $model,
+        'tagList'=>$tagList
     ]) ?>
 
 </div>

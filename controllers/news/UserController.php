@@ -46,7 +46,8 @@ class UserController extends Controller {
 		$userForm = new UserForm();
 		if (($userForm->load(\Yii::$app->request->post()) && $userForm->login()) || !\Yii::$app->user->isGuest) {
 			//登录成功
-			return $this->redirect(['news/user/index']);
+			$redirect=\Yii::$app->request->get('redirect');
+			return $this->redirect($redirect?$redirect:['news/user/index']);
 		} else {
 			//展示登录页面
 			return $this->render('login', ['model' => $userForm]);

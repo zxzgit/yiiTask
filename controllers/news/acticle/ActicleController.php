@@ -5,6 +5,7 @@ namespace app\controllers\news\acticle;
 use Yii;
 use app\models\news\Acticle;
 use app\models\news\ActicleSearch;
+use yii\db\Query;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -35,10 +36,12 @@ class ActicleController extends Controller
     {
         $searchModel = new ActicleSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
+		
+		$tagList=$this->getTagList();
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'tagList' => $tagList,
         ]);
     }
 
@@ -51,7 +54,8 @@ class ActicleController extends Controller
     {
         return $this->render('view', [
             'model' => $this->findModel($id),
-        ]);
+			'tagList' => $this->getTagList(),
+		]);
     }
 
     /**
@@ -61,13 +65,26 @@ class ActicleController extends Controller
      */
     public function actionCreate()
     {
+		!Yii::$app->user->getId() && $this->redirect(['news/user/login']);
         $model = new Acticle();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->aid]);
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+			$dateTime=date('Y-m-d H:i:s');
+			$model->setAttributes([
+				'addtime'=>$dateTime,
+				'mtime'=>$dateTime,
+				'uid'=>Yii::$app->user->getId(),
+				'pv'=>0,
+				'uv'=>0,
+				'ip'=>0,
+			]);
+			if($model->save()){
+				return $this->redirect(['view', 'id' => $model->aid]);
+			}
         } else {
             return $this->render('create', [
                 'model' => $model,
+				'tagList'=>$this->getTagList()
             ]);
         }
     }
@@ -83,11 +100,15 @@ class ActicleController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->aid]);
+			$model->mtime=date('Y-m-d H:i:s');
+			if($model->save()){
+				return $this->redirect(['view', 'id' => $model->aid]);
+			}
         } else {
             return $this->render('update', [
                 'model' => $model,
-            ]);
+				'tagList'=>$this->getTagList()
+			]);
         }
     }
 
@@ -113,10 +134,19 @@ class ActicleController extends Controller
      */
     protected function findModel($id)
     {
-        if (($model = Acticle::findOne($id)) !== null) {
+		$findCondition=['aid'=>$id,'uid'=>Yii::$app->user->getId()];//只可查看、删除、更新自己的文章
+        if (($model = Acticle::findOne($findCondition)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+	
+	/**
+	 * 获取标签
+	 * @return array
+	 */
+    protected function getTagList(){
+		return (new Query())->from('{{%tag}}')->indexBy('tid')->all();
+	}
 }
