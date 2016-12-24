@@ -19,12 +19,20 @@ class Acticle extends ActiveRecord {
 	
 	function rules() {
 		return [
-			[['tid', 'title', 'keyword', 'content'], 'required'],//在创建新文章的时候必须输入的字段
-			[['tid', 'uid', 'pv', 'uv', 'ip'], 'integer'],
-			[['tid', 'title', 'keyword', 'content', 'addtime', 'mtime', 'uid', 'pv', 'uv', 'ip'], 'safe'],//可以通过model对象赋值
+			[['tid', 'title', 'keyword', 'content'], 'required'],//在创建新文章的时候必须要有值，不能为空
+			[['tid', 'uid', 'pv', 'uv', 'ip'], 'integer'],//注意，这里设置要是 integer,但是如果为空发现也可以
+			[['tid', 'uid', 'pv', 'uv', 'ip'],'filter','filter'=>'intval'],//因为为空也可以通过 integer的限制 所以要过滤数据
+			[['content','keyword'],'unique']
 		];
 	}
-	
+
+	public function scenarios()
+	{
+		$scenarios = parent::scenarios();
+		$scenarios['create'] = ['tid', 'title', 'keyword', 'content'];//该场景只接收表单中这几个数据，其他数据不接收
+		return $scenarios;
+	}
+
 	function attributeLabels() {
 		return [
 			'aid'     => '文章Id',
