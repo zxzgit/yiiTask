@@ -8,9 +8,13 @@
 namespace app\models\common;
 
 use yii\db\ActiveRecord;
+use yii\db\Command;
+use yii\helpers\Url;
 use yii\web\IdentityInterface;
+use yii\web\Link;
+use yii\web\Linkable;
 
-class User extends ActiveRecord implements IdentityInterface {
+class User extends ActiveRecord implements IdentityInterface, Linkable {
 	public static function tableName() {
 		return 'zxz_user';
 	}
@@ -59,5 +63,22 @@ class User extends ActiveRecord implements IdentityInterface {
 	 */
 	public function validateAuthKey($authKey) {
 		return $this->getAuthKey() === $authKey;
+	}
+
+	public function fields()
+	{
+		return ['id'=>'uid', 'name'=>'username'];
+	}
+
+	public function extraFields()
+	{
+		return ['sex','access_token'];
+	}
+
+	public function getLinks()
+	{
+		return [
+				Link::REL_SELF => Url::to(['users/', 'id' => $this->id], true),
+		];
 	}
 }

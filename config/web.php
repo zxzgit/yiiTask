@@ -82,7 +82,8 @@ $config = [
             'enableStrictParsing' => true,
             'suffix' => ".html",
             'rules' => [
-            	''=>'news/user/index',
+//				['class' => 'yii\rest\UrlRule', 'controller' => ['user']],//访问api接口是http://domain/users 记得这里有个's'加载后面，对应app/controllers/UserController
+            	''=>'news/user/index',//只有域名是默认的访问的控制器方法
                 '<controller:(\w+)>/<id:\d+>/<action:(\w+)>' => '<controller>/<action>',
                 '<controller:(\w+)>/<id:\d+>' => '<controller>/index',
                 '<controller:(\w+)>/<action:(.*)>' => '<controller>/<action>',
