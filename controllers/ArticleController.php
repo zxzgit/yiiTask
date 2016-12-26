@@ -13,15 +13,15 @@ use app\models\news\Acticle;
 
 class ArticleController extends Controller
 {
-	public function actionIndex($id=false)
+	public function actionIndex()
 	{
 		return new ActiveDataProvider([
-			'query' => !$id?Acticle::find():Acticle::find()->where(['aid'=>$id]),
+			'query' => Acticle::find()
 		]);
 	}
 
 	public function actionView($id=false)
 	{
-		return Acticle::find()->all();
+		return Acticle::findOne($id);
 	}
 }
