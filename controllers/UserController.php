@@ -13,8 +13,7 @@ use yii\filters\auth\HttpBasicAuth;
 use yii\filters\auth\HttpBearerAuth;
 use yii\filters\auth\QueryParamAuth;
 
-class UserController extends ActiveController
-{
+class UserController extends ActiveController {
 	public $modelClass = 'app\models\common\User';
 	
 	public function init() {
@@ -30,23 +29,31 @@ class UserController extends ActiveController
 		];
 	}
 	
-	public function checkAccess($action, $model = null, $params = [])
-	{
+	public function checkAccess($action, $model = null, $params = []) {
 		//todo something
 //		echo $action;
 	}
 	
-	public function behaviors()
-	{
-		$behaviors = parent::behaviors();
+	public function behaviors() {
+		$behaviors                  = parent::behaviors();
 		$behaviors['authenticator'] = [
-			'class' => CompositeAuth::className(),
+			'class'       => CompositeAuth::className(),
 			'authMethods' => [
-				HttpBasicAuth::className(),
-				HttpBearerAuth::className(),
+//				[
+//					'class' => HttpBasicAuth::className(),
+//					'auth'  => function ($username, $password) {
+//						return \app\models\common\User::findOne([
+//							'username' => $username,
+//							'password' => $password,
+//						]);
+//					}
+//				]
+
+//				HttpBearerAuth::className(),
 				QueryParamAuth::className(),
 			],
 		];
+
 		return $behaviors;
 	}
 
