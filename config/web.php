@@ -29,7 +29,9 @@ $config = [
         //格式 'componentID'=>'className|array(some config)'
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
-            'cookieValidationKey' => '123456',
+				'cookieValidationKey' => '123456',//用于给cookie加密，验证cookie在客户端是否被改变
+				'enableCsrfCookie'=>false,//将csrf token存在session中，而不是cookie中
+				'csrfParam'=>'myCsrfName',//设置csrf的在cookie、表单、session中的名字
         ],
 		'response' => [
 				'class' => 'yii\web\Response',
